@@ -14,4 +14,60 @@ export default class ClientsController {
 
     res.status(result.status).json(result);
   }
+
+  async create(req: Request, res: Response) {
+    const { body } = req;
+
+    if (!body) {
+      return res.status(400).json({
+        status: 400,
+        message: "Dados inválidos",
+        data: null,
+      });
+    }
+
+    if (!body.name || !body.email || !body.phone) {
+      return res.status(400).json({
+        status: 400,
+        message: "Dados inválidos",
+        data: null,
+      });
+    }
+
+    if (body.name > 155) {
+      return res.status(400).json({
+        status: 400,
+        message: "Nome deve ter no máximo 155 caracteres",
+        data: null,
+      });
+    }
+
+    if (body.email > 155) {
+      res.status(400).json({
+        status: 400,
+        message: "Email deve ter no máximo 155 caracteres",
+        data: null,
+      });
+    }
+
+    if (body.email.indexOf("@") === -1) {
+      return res.status(400).json({
+        status: 400,
+        message: "Email inválido",
+        data: null,
+      });
+    }
+
+    if (body.phone.lenght > 9) {
+      return res.status(400).json({
+        status: 400,
+        message: "Telefone deve ter no máximo 9 caracteres",
+        data: null,
+      });
+    }
+
+    const result = await this.service.create(body);
+
+    res.status(result.status).json(result);
+  }
 }
