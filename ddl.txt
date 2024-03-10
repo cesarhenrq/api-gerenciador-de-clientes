@@ -1,0 +1,10 @@
+CRIAÇÃO DA TABELA DE CLIENTES:
+
+CREATE TABLE clients (
+ id SERIAL CONSTRAINT pk_id_cliente PRIMARY KEY,
+ name varchar(150) NOT NULL, 
+ email varchar(150) NOT NULL,
+ phone varchar(9) NOT NULL,
+ pos_x varchar(1000) NOT NULL,
+ pos_y varchar(1000) NOT NULL
+);
