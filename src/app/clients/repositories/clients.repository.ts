@@ -10,7 +10,8 @@ export default class ClientsRepository {
 
     const { name, email, phone } = query;
 
-    let queryString = "SELECT id, name, email, phone FROM clients WHERE 1=1";
+    let queryString =
+      "SELECT id, name, email, phone, pos_x, pos_y FROM clients WHERE 1=1";
 
     if (name) queryString += ` AND name LIKE '%${name}%'`;
     if (email) queryString += ` AND email LIKE '%${email}%'`;
@@ -22,9 +23,9 @@ export default class ClientsRepository {
   async create(data: CreateClientDto) {
     const client = await connection.connect();
 
-    const { name, email, phone } = data;
+    const { name, email, phone, pos_x, pos_y } = data;
 
-    const queryString = `INSERT INTO clients (name, email, phone) VALUES ('${name}', '${email}', '${phone}')`;
+    const queryString = `INSERT INTO clients (name, email, phone, pos_x, pos_y) VALUES ('${name}', '${email}', '${phone}', ${pos_x}, ${pos_y})`;
 
     return client.query(queryString);
   }
