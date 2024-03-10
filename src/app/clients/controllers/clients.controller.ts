@@ -26,7 +26,13 @@ export default class ClientsController {
       });
     }
 
-    if (!body.name || !body.email || !body.phone) {
+    if (
+      !body.name ||
+      !body.email ||
+      !body.phone ||
+      !body.pos_x ||
+      !body.pos_y
+    ) {
       return res.status(400).json({
         status: 400,
         message: "Dados inválidos",
@@ -46,6 +52,22 @@ export default class ClientsController {
       res.status(400).json({
         status: 400,
         message: "Email deve ter no máximo 155 caracteres",
+        data: null,
+      });
+    }
+
+    if (Number(body.pos_x) > 1000) {
+      return res.status(400).json({
+        status: 400,
+        message: "Posição X deve ser no máximo 1000",
+        data: null,
+      });
+    }
+
+    if (Number(body.pos_y) > 1000) {
+      return res.status(400).json({
+        status: 400,
+        message: "Posição Y deve ser no máximo 1000",
         data: null,
       });
     }
